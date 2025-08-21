@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CadLand Developers & Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+        .lang-btn.active {
+            background: #1976d2;
+            color: #fff;
+            border-color: #1976d2;
+        }
+    </style>
+</head>
+<body data-page-title="heroTitle">
+
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="static/cadland-logo.png" alt="CadLand Developers & Construction" class="logo-img">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#" id="for-sale-btn" data-i18n="menuSale">For Sale</a></li>
+                    <li><a href="#" id="for-rent-btn" data-i18n="menuRent">For Rent</a></li>
+                    <li><a href="#" id="projects-btn" data-i18n="menuProjects">Projects</a></li>
+                    <li><a href="agents.html" data-i18n="menuAgents">Agents</a></li>
+                    <li><a href="contact.html" data-i18n="menuContact">Contact</a></li>
+                    <li><a href="admin.html" data-i18n="menuAdmin">Admin</a></li>
+                    <li class="language-switcher">
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="english">English</button>
+                        <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')" data-i18n="turkish">Türkçe</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-i18n="heroTitle">Find Your Dream Home in Zambia</h1>
+                <form class="search-form">
+    <input type="text" data-i18n="searchPlaceholder" placeholder="Search for city, neighborhood, or project..." style="flex: 1; min-width: 0;">
+    <button type="submit" data-i18n="searchButton" style="flex: 0 0 120px; max-width: 120px; min-width: 80px;">Search</button>
+</form>
+            </div>
+        </section>
+
+        <section class="listings">
+            <div class="container">
+                <h2 data-i18n="featuredProperties">Featured Properties</h2>
+                <div id="listing-grid" class="listing-grid">
+                    <!-- Property items will be rendered here by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="footerText">&copy; 2025 Zambia Real Estate. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

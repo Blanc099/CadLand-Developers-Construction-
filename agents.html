@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agents - CadLand Developers & Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .agents-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+        }
+        .agent-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(51,51,51,0.09);
+            padding: 28px 20px 18px 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .agent-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 6px 24px rgba(41,128,185,0.16);
+        }
+        .agent-photo {
+            width: 84px;
+            height: 84px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #2980b9;
+            margin-bottom: 18px;
+        }
+        .agent-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 6px;
+        }
+        .agent-role {
+            color: #2c3e50;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        .agent-contact {
+            font-size: 0.98em;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        .agent-desc {
+            font-size: 0.97em;
+            color: #444;
+        }
+        @media (max-width: 700px) {
+            .agents-section { padding: 10px; }
+        }
+        /* Language switcher */
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+        .lang-btn.active {
+            background: #1976d2;
+            color: #fff;
+            border-color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="static/cadland-logo.png" alt="CadLand Developers & Construction" class="logo-img">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-i18n="menuSale">For Sale</a></li>
+                    <li><a href="index.html" data-i18n="menuRent">For Rent</a></li>
+                    <li><a href="index.html" data-i18n="menuProjects">Projects</a></li>
+                    <li><a href="agents.html" data-i18n="menuAgents" style="color:#1976d2;font-weight:bold;">Agents</a></li>
+                    <li><a href="contact.html" data-i18n="menuContact">Contact</a></li>
+                    <li><a href="admin.html" data-i18n="menuAdmin">Admin</a></li>
+                    <li class="language-switcher">
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="english">English</button>
+                        <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')" data-i18n="turkish">Türkçe</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Meet Our Agents</h1>
+            </div>
+        </section>
+        <section class="agents-section">
+            <h2 style="text-align:center; color:#1976d2; margin-bottom:32px;">CadLand Developers & Construction Team</h2>
+            <div id="agents-grid" class="agents-grid">
+                <!-- Agents will be loaded dynamically -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p data-i18n="footerText">&copy; 2025 Zambia Real Estate. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/translations.js"></script>
+    <script>
+        // Dynamic Agents Loading
+        class AgentsPage {
+            constructor() {
+                this.loadAgents();
+                this.setupEventListeners();
+            }
+            
+            getAgents() {
+                return JSON.parse(localStorage.getItem('agents') || '[]');
+            }
+            
+            loadAgents() {
+                const agentsGrid = document.getElementById('agents-grid');
+                const agents = this.getAgents();
+                
+                if (agents.length === 0) {
+                    // Show default agents if no agents in localStorage
+                    this.showDefaultAgents();
+                    return;
+                }
+                
+                agentsGrid.innerHTML = agents.map(agent => {
+                    const photoSrc = agent.photo || `https://randomuser.me/api/portraits/${agent.name.includes('a') ? 'women' : 'men'}/${Math.floor(Math.random() * 99)}.jpg`;
+                    const roleText = this.getRoleText(agent.role);
+                    const phone = agent.phone || '+260 XXX XXX XXX';
+                    const specialty = agent.specialty || 'Real Estate Professional';
+                    
+                    return `
+                        <div class="agent-card">
+                            <img src="${photoSrc}" alt="${agent.name}" class="agent-photo" onerror="this.src='https://randomuser.me/api/portraits/men/32.jpg'">
+                            <div class="agent-name">${agent.name}</div>
+                            <div class="agent-role">${roleText}</div>
+                            <div class="agent-contact">${agent.email}<br>${phone}</div>
+                            <div class="agent-desc">${specialty}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            getRoleText(role) {
+                const roleMap = {
+                    'agent': 'Property Consultant',
+                    'manager': 'Senior Manager',
+                    'admin': 'Administrator'
+                };
+                return roleMap[role] || 'Property Consultant';
+            }
+            
+            showDefaultAgents() {
+                const agentsGrid = document.getElementById('agents-grid');
+                agentsGrid.innerHTML = `
+                    <div class="agent-card">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Agent Photo" class="agent-photo">
+                        <div class="agent-name">James Banda</div>
+                        <div class="agent-role">Senior Property Consultant</div>
+                        <div class="agent-contact">james.banda@zambiaestates.com<br>+260 987 654 321</div>
+                        <div class="agent-desc">10+ years of experience in Lusaka and Copperbelt. Specializes in residential and commercial sales.</div>
+                    </div>
+                    <div class="agent-card">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Agent Photo" class="agent-photo">
+                        <div class="agent-name">Linda Mwale</div>
+                        <div class="agent-role">Lettings Specialist</div>
+                        <div class="agent-contact">linda.mwale@zambiaestates.com<br>+260 123 987 654</div>
+                        <div class="agent-desc">Expert in luxury rentals and property management. Fluent in English and Bemba.</div>
+                    </div>
+                    <div class="agent-card">
+                        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Agent Photo" class="agent-photo">
+                        <div class="agent-name">Patrick Zulu</div>
+                        <div class="agent-role">Project Advisor</div>
+                        <div class="agent-contact">patrick.zulu@zambiaestates.com<br>+260 321 654 987</div>
+                        <div class="agent-desc">Focuses on new developments and investment opportunities across Zambia.</div>
+                    </div>
+                    <div class="agent-card">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Agent Photo" class="agent-photo">
+                        <div class="agent-name">Grace Chanda</div>
+                        <div class="agent-role">Customer Relations</div>
+                        <div class="agent-contact">grace.chanda@zambiaestates.com<br>+260 456 789 123</div>
+                        <div class="agent-desc">Ensures smooth communication and satisfaction for all clients.</div>
+                    </div>
+                `;
+            }
+            
+            setupEventListeners() {
+                // Listen for agent updates from admin panel
+                window.addEventListener('agentsUpdated', (e) => {
+                    this.loadAgents();
+                });
+                
+                // Listen for storage changes (cross-tab communication)
+                window.addEventListener('storage', (e) => {
+                    if (e.key === 'agents' || e.key === 'agentsLastUpdated') {
+                        this.loadAgents();
+                    }
+                });
+            }
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new AgentsPage();
+        });
+    </script>
+</body>
+</html>

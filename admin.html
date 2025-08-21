@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Zambia Real Estate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a3d9a5 0%, #7fb069 100%);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #2d5a3d;
+            color: white;
+            padding: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            background: #1e3a2e;
+            text-align: center;
+            border-bottom: 1px solid #3a5a4a;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ecf0f1;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 1px solid #3a4a5c;
+            background: transparent;
+            color: #ecf0f1;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #3a4a5c;
+        }
+
+        .lang-btn.active {
+            background: #7fb069;
+            border-color: #7fb069;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px 25px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background: #34495e;
+            color: #ecf0f1;
+            padding-left: 30px;
+        }
+
+        .menu-item.active {
+            background: #7fb069;
+            color: white;
+            border-right: 4px solid #5a8a4a;
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 16px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            background: #ecf0f1;
+        }
+
+        .content-header {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .content-header h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .content-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, #a3d9a5 0%, #7fb069 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-card h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .dashboard-card .stat {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-card .change {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .data-table th {
+            background: #2d5a3d;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #7fb069;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #7fb069;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a8a4a;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1001;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Success/Error Messages */
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            position: relative;
+            height: 400px;
+        }
+
+        .chart-container h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        #salesChart {
+            max-height: 300px !important;
+            width: 100% !important;
+        }
+
+        /* Badge styles */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.active {
+            background: #27ae60;
+            color: white;
+        }
+
+        .badge.inactive {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .badge.new {
+            background: #3498db;
+            color: white;
+        }
+
+        .badge.contacted {
+            background: #f39c12;
+            color: white;
+        }
+
+        .badge.completed {
+            background: #27ae60;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 data-i18n="adminPanel">Admin Panel</h2>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item" style="color: #bdc3c7; text-decoration: none; border: none; background: none;">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="backToHome">Ana Sayfaya Dön</span>
+                </a>
+                <button class="menu-item active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span data-i18n="dashboard">Dashboard</span>
+                </button>
+                <button class="menu-item" data-section="properties">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="propertyManagement">İlan Yönetimi</span>
+                </button>
+                <button class="menu-item" data-section="add-property">
+                    <i class="fas fa-plus"></i>
+                    <span data-i18n="addListing">İlan Ekle</span>
+                </button>
+                <button class="menu-item" data-section="agents">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="agentManagement">Danışman Yönetimi</span>
+                </button>
+                <button class="menu-item" data-section="inquiries">
+                    <i class="fas fa-envelope"></i>
+                    <span data-i18n="inquiries">Talepler</span>
+                </button>
+                <button class="menu-item" data-section="content">
+                    <i class="fas fa-edit"></i>
+                    <span data-i18n="contentManagement">İçerik Yönetimi</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="content-header">
+                    <h1 data-i18n="dashboard">Dashboard</h1>
+                    <p data-i18n="dashboardDesc">Genel istatistikler ve özet bilgiler</p>
+                </div>
+
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <h3 data-i18n="totalListings">Toplam İlan</h3>
+                        <div class="stat" id="total-properties">0</div>
+                        <div class="change" data-i18n="thisMonth">Bu ay</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 data-i18n="forSaleListings">Satılık İlan</h3>
+                        <div class="stat" id="sale-properties">0</div>
+                        <div class="change" data-i18n="active">Aktif</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 data-i18n="forRentListings">Kiralık İlan</h3>
+                        <div class="stat" id="rent-properties">0</div>
+                        <div class="change" data-i18n="active">Aktif</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3 data-i18n="totalInquiries">Toplam Talep</h3>
+                        <div class="stat" id="total-inquiries">0</div>
+                        <div class="change" data-i18n="pending">Beklemede</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 data-i18n="salesChart">Satış Grafiği</h3>
+                    <canvas id="salesChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Properties Section -->
+            <div id="properties" class="content-section">
+                <div class="content-header">
+                    <h1 data-i18n="propertyManagement">İlan Yönetimi</h1>
+                    <p data-i18n="propertyManagementDesc">Mevcut ilanları görüntüle, düzenle ve sil</p>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="title">Başlık</th>
+                                <th data-i18n="type">Tür</th>
+                                <th data-i18n="price">Fiyat</th>
+                                <th data-i18n="bedrooms">Oda</th>
+                                <th data-i18n="date">Tarih</th>
+                                <th data-i18n="actions">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="properties-table">
+                            <!-- Properties will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add Property Section -->
+            <div id="add-property" class="content-section">
+                <div class="content-header">
+                    <h1 data-i18n="addListing">İlan Ekle</h1>
+                    <p data-i18n="addListingDesc">Yeni emlak ilanı ekle</p>
+                </div>
+
+                <form id="property-form" class="form-grid">
+                    <div class="form-group">
+                        <label data-i18n="title">Başlık</label>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="price">Fiyat</label>
+                        <input type="number" name="price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Para Birimi</label>
+                        <select name="currency" class="form-control" required>
+                            <option value="USD">$ USD</option>
+                            <option value="ZMW">ZK Kwacha</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="type">Tür</label>
+                        <select name="type" class="form-control" required>
+                            <option value="sale" data-i18n="forSale">Satılık</option>
+                            <option value="rent" data-i18n="forRent">Kiralık</option>
+                            <option value="project" data-i18n="project">Proje</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="bedrooms">Oda Sayısı</label>
+                        <input type="number" name="bedrooms" class="form-control" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="bathrooms">Banyo Sayısı</label>
+                        <input type="number" name="bathrooms" class="form-control" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="size">Metrekare</label>
+                        <input type="number" name="size" class="form-control" min="0">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label data-i18n="description">Açıklama</label>
+                        <textarea name="description" class="form-control" rows="4"></textarea>
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label data-i18n="image">Images</label>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+                            <input type="file" name="imageFiles" class="form-control" accept="image/*" multiple style="flex: 1; min-width: 200px;" title="Choose Files">
+                            <span style="color: #666; font-size: 12px;">or</span>
+                            <input type="url" name="imageUrl" class="form-control" placeholder="Image URL" style="flex: 1; min-width: 200px;">
+                        </div>
+                        <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                            <i class="fas fa-info-circle"></i> You can select multiple images at once
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="location">Google Maps URL</label>
+                        <input type="url" name="location" class="form-control">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            <span data-i18n="save">Kaydet</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Agents Section -->
+            <div id="agents" class="content-section">
+                <div class="content-header">
+                    <h1 data-i18n="agentManagement">Danışman Yönetimi</h1>
+                    <p data-i18n="agentManagementDesc">Danışmanları yönet</p>
+                </div>
+
+                <button class="btn btn-success" id="add-agent-btn">
+                    <i class="fas fa-plus"></i>
+                    <span data-i18n="addAgent">Danışman Ekle</span>
+                </button>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="name">İsim</th>
+                                <th data-i18n="email">E-posta</th>
+                                <th data-i18n="role">Rol</th>
+                                <th data-i18n="status">Durum</th>
+                                <th data-i18n="actions">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="agents-table">
+                            <!-- Agents will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Inquiries Section -->
+            <div id="inquiries" class="content-section">
+                <div class="content-header">
+                    <h1 data-i18n="inquiries">Talepler</h1>
+                    <p data-i18n="inquiriesDesc">Müşteri talepleri ve mesajları</p>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="name">İsim</th>
+                                <th data-i18n="email">E-posta</th>
+                                <th data-i18n="property">İlan</th>
+                                <th data-i18n="status">Durum</th>
+                                <th data-i18n="date">Tarih</th>
+                                <th data-i18n="actions">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inquiries-table">
+                            <!-- Inquiries will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Content Management Section -->
+            <div id="content" class="content-section">
+                <div class="content-header">
+                    <h1 data-i18n="contentManagement">İçerik Yönetimi</h1>
+                    <p data-i18n="contentManagementDesc">Sayfa içeriklerini düzenle</p>
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="selectPage">Sayfa Seç</label>
+                    <select id="page-selector" class="form-control">
+                        <option value="about" data-i18n="aboutUs">Hakkımızda</option>
+                        <option value="privacy" data-i18n="privacyPolicy">Gizlilik Politikası</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n="content">İçerik</label>
+                    <textarea id="content-editor" class="form-control" rows="10"></textarea>
+                </div>
+
+                <button id="save-content-btn" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    <span data-i18n="saveContent">İçeriği Kaydet</span>
+                </button>
+
+                <div id="content-success" class="alert alert-success" style="display: none;">
+                    <span data-i18n="contentSaved">İçerik başarıyla kaydedildi!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Agent Modal -->
+    <div id="agent-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-i18n="agentDetails">Danışman Detayları</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="agent-form">
+                <div class="form-group">
+                    <label data-i18n="name">İsim</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="email">E-posta</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="photo">Fotoğraf</label>
+                    <input type="file" name="photo" class="form-control" accept="image/*">
+                    <small class="form-text text-muted" data-i18n="photoHint">Agent fotoğrafı yükleyin (opsiyonel)</small>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="phone">Telefon</label>
+                    <input type="tel" name="phone" class="form-control" placeholder="+260 XXX XXX XXX">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="specialty">Uzmanlık Alanı</label>
+                    <input type="text" name="specialty" class="form-control" data-i18n-placeholder="specialtyPlaceholder">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="role">Rol</label>
+                    <select name="role" class="form-control">
+                        <option value="agent" data-i18n="agent">Danışman</option>
+                        <option value="manager" data-i18n="manager">Müdür</option>
+                        <option value="admin" data-i18n="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="status">Durum</label>
+                    <select name="status" class="form-control">
+                        <option value="active" data-i18n="active">Aktif</option>
+                        <option value="inactive" data-i18n="inactive">Pasif</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <span data-i18n="save">Kaydet</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary modal-close">
+                        <span data-i18n="cancel">İptal</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inquiry Modal -->
+    <div id="inquiry-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-i18n="inquiryDetails">Talep Detayları</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="inquiry-details">
+                <!-- Inquiry details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin-new.js"></script>
+</body>
+</html>

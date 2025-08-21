@@ -1,0 +1,266 @@
+/* General Body Styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f8f9fa;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background: #a3d9a5;
+    color: #333333;
+    padding: 16px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header and Navbar */
+.navbar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1.5rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.logo-img {
+    height: max(140px, 8vw);
+    width: auto;
+    max-width: min(500px, 25vw);
+    object-fit: contain;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #333333;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a:hover, .nav-links .active {
+    background: #ffd8a8;
+    color: #1976d2;
+}
+
+.login-btn {
+    background: #1976d2;
+    color: #fff !important;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-left: 8px;
+    transition: background 0.2s;
+}
+
+.login-btn:hover {
+    background: #125ea2;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(163,217,165,0.7), rgba(51,51,51,0.5)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+    color: #fff;
+    padding: 80px 0 60px 0;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 8px rgba(51,51,51,0.2);
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-top: 24px;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-form input[type="text"] {
+    flex: 1 1 0%;
+    padding: 16px 18px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 1.1rem;
+    outline: none;
+    min-width: 0;
+}
+
+.search-form button {
+    flex: 0 0 80px;
+    max-width: 80px;
+    min-width: 60px;
+    padding: 14px 0;
+    border: none;
+    background: #1976d2;
+    color: #fff;
+    font-size: 1.1rem;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 600;
+    text-align: center;
+}
+
+.search-form button:hover {
+    background: #125ea2;
+}
+
+/* Listings Section */
+.listings {
+    background: #fff;
+    padding: 48px 0 60px 0;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 32px;
+    color: #333333;
+}
+
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.listing-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px 0 rgba(51,51,51,0.08);
+    padding: 24px 20px 18px 20px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 340px;
+}
+
+.listing-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(51,51,51,0.16);
+    transform: translateY(-4px) scale(1.02);
+}
+
+.listing-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.listing-card h3 {
+    font-size: 1.2rem;
+    margin: 15px;
+}
+
+.price {
+    color: #1976d2;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 8px 0 4px 0;
+}
+
+.listing-card .details {
+    color: #555;
+    font-size: 0.98rem;
+    margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background: #a3d9a5;
+    color: #333333;
+    padding: 18px 0;
+    margin-top: 40px;
+}
+
+/* Formlar */
+form label {
+    display: block;
+    margin-bottom: 12px;
+    color: #333;
+    font-weight: 500;
+}
+form input, form textarea, form select, form button {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 4px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #a3d9a5;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border 0.2s;
+}
+form input:focus, form textarea:focus, form select:focus {
+    border: 1.5px solid #1976d2;
+    outline: none;
+}
+form button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+form button:hover {
+    background: #125ea2;
+}
+
+@media (max-width: 700px) {
+    .listing-grid {
+        grid-template-columns: 1fr;
+    }
+    .container {
+        width: 98%;
+    }
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    .search-form input[type="text"] {
+        width: 100%;
+    }
+}

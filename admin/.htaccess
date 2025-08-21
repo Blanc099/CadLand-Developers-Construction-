@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Admin Panel"
+AuthUserFile "{ABSOLUTE_PATH}/.htpasswd"
+Require valid-user

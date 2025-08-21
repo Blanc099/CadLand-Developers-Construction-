@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - CadLand Developers & Construction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .language-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .lang-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+        .lang-btn.active {
+            background: #1976d2;
+            color: #fff;
+            border-color: #1976d2;
+        }
+    </style>
+    <style>
+        .contact-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .contact-header h2 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: linear-gradient(135deg, #2980b9, #1a5276);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #2c3e50;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-page-title="contactTitle">
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="static/cadland-logo.png" alt="CadLand Developers & Construction" class="logo-img">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-i18n="menuSale">For Sale</a></li>
+                    <li><a href="index.html" data-i18n="menuRent">For Rent</a></li>
+                    <li><a href="index.html" data-i18n="menuProjects">Projects</a></li>
+                    <li><a href="agents.html" data-i18n="menuAgents">Agents</a></li>
+                    <li><a href="contact.html" data-i18n="menuContact">Contact</a></li>
+                    <li><a href="admin.html" data-i18n="menuAdmin">Admin</a></li>
+                    <li class="language-switcher">
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')" data-i18n="english">English</button>
+                        <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')" data-i18n="turkish">Türkçe</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-i18n="contactTitle">Contact CadLand Developers & Construction</h1>
+            </div>
+        </section>
+    </main>
+    <div class="contact-container">
+        <div class="contact-header">
+            <h2 data-i18n="contactHeader">İletişim</h2>
+        </div>
+        
+        <form id="contact-form" class="contact-form">
+            <label data-i18n="contactName">Adınız ve Soyadınız</label>
+            <input type="text" name="name" required data-i18n="contactName" placeholder="Adınız ve Soyadınız">
+
+            <label data-i18n="contactEmail">E-posta Adresiniz</label>
+            <input type="email" name="email" required data-i18n="contactEmail" placeholder="E-posta Adresiniz">
+
+            <label data-i18n="contactSubject">Konu</label>
+            <input type="text" name="subject" required data-i18n="contactSubject" placeholder="Mesajınızın Konusu">
+
+            <label data-i18n="contactMessage">Mesajınız</label>
+            <textarea name="message" required data-i18n="contactMessage" placeholder="Mesajınızı buraya yazın"></textarea>
+
+            <button type="submit" data-i18n="contactSend">Mesaj Gönder</button>
+        </form>
+
+        <div class="contact-info">
+            <div>
+                <h3 data-i18n="generalInfo">Genel Bilgiler</h3>
+                <p><strong data-i18n="email">Email:</strong> info@zambiaestates.com</p>
+                <p><strong>Telefon:</strong> +260 123 456 789</p>
+                <p><strong>Adres:</strong> Lusaka, Zambia</p>
+            </div>
+            
+            <div>
+                <h3 data-i18n="workingHours">Çalışma Saatleri</h3>
+                <p data-i18n="mondayFriday">Pazartesi-Cuma: 09:00 - 17:00</p>
+                <p data-i18n="saturday">Cumartesi: 09:00 - 13:00</p>
+                <p data-i18n="sunday">Pazar: Kapalı</p>
+            </div>
+
+            <div class="social-links">
+                <a href="#" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        
+        <!-- About Us Section -->
+        <div class="content-section" style="margin-top: 60px; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 data-i18n="aboutUs" style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Hakkımızda</h2>
+            <div id="about-us-content" style="line-height: 1.6; color: #333;">
+                <p>Zambia Estates olarak, Zambiya'daki emlak sektöründe güvenilir ve profesyonel hizmet sunmaktayız. Müşterilerimizin hayallerindeki evi bulmalarına yardımcı olmak için buradayız.</p>
+            </div>
+        </div>
+        
+        <!-- Privacy Policy Section -->
+        <div class="content-section" style="margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h2 data-i18n="privacyPolicy" style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Gizlilik Politikası</h2>
+            <div id="privacy-policy-content" style="line-height: 1.6; color: #333;">
+                <p>Kişisel verilerinizin güvenliği bizim için önemlidir. Bu gizlilik politikası, verilerinizin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar.</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/translations.js"></script>
+    <script src="js/contact.js"></script>
+    <script>
+        // Load dynamic content from admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current language (default to Turkish)
+            const currentLang = localStorage.getItem('adminLanguage') || 'tr';
+            
+            // Load About Us content
+            const aboutUsContent = localStorage.getItem(`content_about_${currentLang}`) || 
+                                 localStorage.getItem('about_content_tr') || 
+                                 localStorage.getItem('about_content_en');
+            if (aboutUsContent) {
+                document.getElementById('about-us-content').innerHTML = `<p>${aboutUsContent.replace(/\n/g, '<br>')}</p>`;
+            }
+            
+            // Load Privacy Policy content
+            const privacyContent = localStorage.getItem(`content_privacy_${currentLang}`) || 
+                                 localStorage.getItem('privacy_content_tr') || 
+                                 localStorage.getItem('privacy_content_en');
+            if (privacyContent) {
+                document.getElementById('privacy-policy-content').innerHTML = `<p>${privacyContent.replace(/\n/g, '<br>')}</p>`;
+            }
+            
+            // Update content every 5 seconds to catch admin changes
+            setInterval(function() {
+                const newAboutContent = localStorage.getItem(`content_about_${currentLang}`);
+                const newPrivacyContent = localStorage.getItem(`content_privacy_${currentLang}`);
+                
+                if (newAboutContent && newAboutContent !== aboutUsContent) {
+                    document.getElementById('about-us-content').innerHTML = `<p>${newAboutContent.replace(/\n/g, '<br>')}</p>`;
+                }
+                
+                if (newPrivacyContent && newPrivacyContent !== privacyContent) {
+                    document.getElementById('privacy-policy-content').innerHTML = `<p>${newPrivacyContent.replace(/\n/g, '<br>')}</p>`;
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
