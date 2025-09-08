@@ -1,18 +1,21 @@
-# Zambia Real Estate - Kullanım Kılavuzu
+# Zambia Real Estate - User Guide
 
-## Özellikler
-- Üst menüden ilanları (For Sale, For Rent, Projects) filtreleyebilirsiniz.
-- Admin panelinden (admin.html) yeni ilan ekleyebilirsiniz. Eklenen ilanlar localStorage'da saklanır.
-- Ana sayfada (index.html) eklenen ilanlar dinamik olarak gösterilir ve filtrelenebilir.
-- Her ilanda Google Maps entegrasyonu (harita veya link) bulunur.
-- İletişim sayfasında (contact.html) form doldurup mesaj gönderebilirsiniz (sadece alert ile bilgilendirme yapılır).
-- Modern ve responsive tasarım, Zambia bayrağı renklerinde.
+## Features
+- You can filter listings (For Sale, For Rent, Projects) from the top menu.
+- You can add new listings from the admin panel (admin.html). Added listings are stored in localStorage.
+- Added listings are dynamically displayed and can be filtered on the home page (index.html).
+- Each listing includes Google Maps integration (map or link).
+- You can fill out the form on the contact page (contact.html) and send a message (only an alert is displayed).
+- Modern and responsive design, featuring the colors of the Zambian flag.
 
-## Test Etme ve Kullanım
-1. `index.html` dosyasını tarayıcıda açın. Menüden filtreleme yapabilirsiniz.
-2. Yeni ilan eklemek için `admin.html` dosyasını açın, formu doldurun ve kaydedin. Başarı mesajı sonrası ana sayfaya yönlendirilirsiniz.
-3. Eklediğiniz ilanlar ana sayfada ve filtrelerde görünür.
-4. Her ilanda Google Maps linki veya harita embed'i varsa kartta gösterilir.
-5. İletişim için menüden "Contact"'a tıklayın, formu doldurun ve gönderin.
+## Testing and Usage
+1. Open the `index.html` file in your browser. You can filter from the menu.
+2. To add a new listing, open the `admin.html` file, fill out the form, and save. After a success message, you will be redirected to the home page.
+3. The ads you add will appear on the main page and in the filters.
+4. If there is a Google Maps link or map embed in each ad, it will be displayed on the card.
+5. To contact us, click “Contact” in the menu, fill out the form, and submit it.
 
-> Not: Tüm veriler localStorage'da tutulur, sadece yerel kullanım içindir. Sunucuya yüklemeden test edebilirsiniz.
+> Note: All data is stored in localStorage and is for local use only. You can test it without uploading it to the server.
+
+
+Translated with DeepL.com (free version)
