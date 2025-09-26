@@ -18,4 +18,4 @@
 > Note: All data is stored in localStorage and is for local use only. You can test it without uploading it to the server.
 
 
-Translated with DeepL.com (free version)
+
